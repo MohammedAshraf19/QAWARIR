@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:qawarir/modules/login_screen.dart';
 import 'package:qawarir/modules/splash/splash_screen.dart';
 import 'package:qawarir/shared/style/theme_manager.dart';
-
 import 'modules/signup_screen.dart';
 
 void main() {
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'QAWARIR',
       theme: myTheme(),
-      home: const SignupScreen(),
+      home: const LoginScreen(),
     );
   }
 }

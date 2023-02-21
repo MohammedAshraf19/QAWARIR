@@ -11,20 +11,24 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: BuildScreen(),
     );
   }
 }
 
 class BuildScreen extends StatefulWidget {
-  BuildScreen({super.key});
+  const BuildScreen({super.key});
 
   @override
   State<BuildScreen> createState() => _BuildScreenState();
 }
 
 class _BuildScreenState extends State<BuildScreen> {
+  bool validName = false;
+  bool validEmail = false;
+  bool validPassword = false;
+  bool enableButton = false;
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -59,12 +63,13 @@ class _BuildScreenState extends State<BuildScreen> {
         });
   }
 
-  buildBigButton(String text, Function() function) {
+  buildBigButton(String text, Function()? function) {
     return SizedBox(
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             minimumSize: const Size.fromHeight(50),
             backgroundColor: ColorManager.darkPink,
+            disabledBackgroundColor: Colors.grey,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30))),
         onPressed: function,
@@ -131,6 +136,27 @@ class _BuildScreenState extends State<BuildScreen> {
       height: AppSize.s40,
     );
 
+    nameController.addListener(() {
+      setState(() {
+        validName = nameController.text.isNotEmpty;
+        enableButton = validName && validEmail && validPassword;
+      });
+    });
+
+    emailController.addListener(() {
+      setState(() {
+        validEmail = emailController.text.isNotEmpty;
+        enableButton = validName && validEmail && validPassword;
+      });
+    });
+
+    passwordController.addListener(() {
+      setState(() {
+        validPassword = !(passwordController.text.length < 8);
+        enableButton = validName && validEmail && validPassword;
+      });
+    });
+
     return SafeArea(
       child: SingleChildScrollView(
         child: Center(
@@ -153,7 +179,8 @@ class _BuildScreenState extends State<BuildScreen> {
                 smallEmptyBox,
                 buildTextField(passwordController, AppStrings.password, true),
                 smallEmptyBox,
-                buildBigButton(AppStrings.signIn, () => null),
+                buildBigButton(AppStrings.signIn,
+                    enableButton ? () => print('signed up') : null),
                 smallEmptyBox,
                 haveAccount,
               ],

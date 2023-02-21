@@ -4,7 +4,6 @@ import 'package:qawarir/shared/style/fonts_manager.dart';
 import 'package:qawarir/shared/style/string_manager.dart';
 import 'package:qawarir/shared/style/styles_manager.dart';
 import 'package:qawarir/shared/style/values_manager.dart';
-
 import 'signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -12,14 +11,14 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: BuildScreen(),
     );
   }
 }
 
 class BuildScreen extends StatefulWidget {
-  BuildScreen({super.key});
+  const BuildScreen({super.key});
 
   @override
   State<BuildScreen> createState() => BuildScreenState();
@@ -27,6 +26,9 @@ class BuildScreen extends StatefulWidget {
 
 class BuildScreenState extends State<BuildScreen> {
   bool? isChecked = false;
+  bool validEmail = false;
+  bool validPassword = false;
+  bool enableButton = false;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -60,12 +62,13 @@ class BuildScreenState extends State<BuildScreen> {
         });
   }
 
-  buildBigButton(String text, Function() function) {
+  buildBigButton(String text, Function()? function) {
     return SizedBox(
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            minimumSize: const Size.fromHeight(50),
             backgroundColor: ColorManager.darkPink,
+            disabledBackgroundColor: Colors.grey,
+            minimumSize: const Size.fromHeight(50),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30))),
         onPressed: function,
@@ -131,9 +134,10 @@ class BuildScreenState extends State<BuildScreen> {
             });
           },
         ),
-        Text(AppStrings.rememberMe)
+        const Text(AppStrings.rememberMe)
       ],
     );
+
     Widget optionsRow = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -162,6 +166,20 @@ class BuildScreenState extends State<BuildScreen> {
       height: AppSize.s40,
     );
 
+    emailController.addListener(() {
+      setState(() {
+        validEmail = emailController.text.isNotEmpty;
+        enableButton = validEmail && validPassword;
+      });
+    });
+
+    passwordController.addListener(() {
+      setState(() {
+        validPassword = !(passwordController.text.length < 8);
+        enableButton = validEmail && validPassword;
+      });
+    });
+
     return SafeArea(
       child: SingleChildScrollView(
         child: Center(
@@ -183,7 +201,8 @@ class BuildScreenState extends State<BuildScreen> {
                 buildTextField(passwordController, AppStrings.password, true),
                 optionsRow,
                 smallEmptyBox,
-                buildBigButton(AppStrings.signIn, () => null),
+                buildBigButton(AppStrings.signIn,
+                    enableButton ? () => print('logged') : null),
                 smallEmptyBox,
                 haveAccount,
               ],
