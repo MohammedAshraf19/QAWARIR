@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qawarir/modules/home/home_screen.dart';
 import 'package:qawarir/shared/style/color_manager.dart';
 import 'package:qawarir/shared/style/values_manager.dart';
 
@@ -8,11 +9,8 @@ class QawarirLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      body: const Center(
-        child: Text(
-            'Hallo'
-        ),
-      ),
+      appBar: AppBar(),
+      body: const HomeScreen(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: (){},
