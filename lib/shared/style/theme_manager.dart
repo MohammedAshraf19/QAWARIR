@@ -20,6 +20,16 @@ ThemeData myTheme(){
       elevation: AppSize.s0,
 
     ),
+      // ElevatedButtonTheme
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: ColorManager.white,
+          textStyle: getMediumStyle(color: ColorManager.primary),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppSize.s16)
+          ),
+        ),
+      ),
     //input decoration Theme
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: EdgeInsets.all(AppPadding.p8),
