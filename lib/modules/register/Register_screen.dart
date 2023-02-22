@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:qawarir/modules/login_screen.dart';
+import 'package:qawarir/modules/login/login_screen.dart';
 import 'package:qawarir/shared/style/color_manager.dart';
 import 'package:qawarir/shared/style/fonts_manager.dart';
 import 'package:qawarir/shared/style/string_manager.dart';
 import 'package:qawarir/shared/style/styles_manager.dart';
 import 'package:qawarir/shared/style/values_manager.dart';
 
-class SignupScreen extends StatelessWidget {
-  const SignupScreen({super.key});
+import '../../layout/qawarir_layout.dart';
+
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +120,8 @@ class _BuildScreenState extends State<BuildScreen> {
             style: TextStyle(
                 decoration: TextDecoration.underline,
                 fontSize: FontSize.s14,
-                color: ColorManager.darkPink),
+                color: ColorManager.darkPink
+            ),
           ),
         )
       ],
@@ -180,7 +183,7 @@ class _BuildScreenState extends State<BuildScreen> {
                 buildTextField(passwordController, AppStrings.password, true),
                 smallEmptyBox,
                 buildBigButton(AppStrings.signIn,
-                    enableButton ? () => print('signed up') : null),
+                    enableButton ? () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>QawarirLayout())) : null),
                 smallEmptyBox,
                 haveAccount,
               ],

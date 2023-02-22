@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:qawarir/layout/qawarir_layout.dart';
 import 'package:qawarir/shared/style/color_manager.dart';
 import 'package:qawarir/shared/style/fonts_manager.dart';
 import 'package:qawarir/shared/style/string_manager.dart';
 import 'package:qawarir/shared/style/styles_manager.dart';
 import 'package:qawarir/shared/style/values_manager.dart';
-import 'signup_screen.dart';
+import 'package:qawarir/modules/register/Register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -109,8 +110,11 @@ class BuildScreenState extends State<BuildScreen> {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const SignupScreen()));
+            Navigator.push(
+                context,
+              MaterialPageRoute(builder: (context)=>const RegisterScreen())
+
+            );
           },
           child: Text(
             AppStrings.createOne,
@@ -202,7 +206,7 @@ class BuildScreenState extends State<BuildScreen> {
                 optionsRow,
                 smallEmptyBox,
                 buildBigButton(AppStrings.signIn,
-                    enableButton ? () => print('logged') : null),
+                    enableButton ? () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>QawarirLayout())): null),
                 smallEmptyBox,
                 haveAccount,
               ],

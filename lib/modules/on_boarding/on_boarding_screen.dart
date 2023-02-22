@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qawarir/shared/style/asset_manager.dart';
 import 'package:qawarir/shared/style/string_manager.dart';
 import 'package:qawarir/shared/style/styles_manager.dart';
+import 'package:qawarir/modules/login/login_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../shared/style/color_manager.dart';
 import '../../shared/style/values_manager.dart';
@@ -167,7 +168,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     style: ElevatedButton.styleFrom(
                     ),
                     onPressed: (){
-                   //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
                     },
                     child: Text(
                       'Get Started',
@@ -177,7 +178,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               ),
             TextButton(
                 onPressed: (){
-            //      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+                  Navigator.pushReplacement(
+                      context, 
+                      MaterialPageRoute(builder: (context)=>LoginScreen())
+                  );
                 },
                 child: Text(
                   'skip',
