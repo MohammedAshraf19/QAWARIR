@@ -163,21 +163,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
           )),
     );
 
-    return Column(
-      children: [
-        closeIcon,
-        account,
-        drawLine,
-        _buildSettingRow('Account', () => null),
-        _buildSettingRow('Language', () => null),
-        drawLine,
-        _buildDocRow('What\'s new', () => null),
-        _buildDocRow('FAQ', () => null),
-        _buildDocRow('Terms of Service', () => null),
-        _buildDocRow('Privacy Policy', () => null),
-        lightMode,
-        logOut
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          closeIcon,
+          account,
+          drawLine,
+          _buildSettingRow('Account', () => null),
+          _buildSettingRow('Language', () => null),
+          drawLine,
+          _buildDocRow('What\'s new', () => null),
+          _buildDocRow('FAQ', () => null),
+          _buildDocRow('Terms of Service', () => null),
+          _buildDocRow('Privacy Policy', () => null),
+          lightMode,
+          logOut
+        ],
+      ),
     );
   }
 }

@@ -39,3 +39,8 @@ TextStyle getBoldMediumStyle(
   return _getTextStyle(
       color: color, fontSize: fontSize, fontWeight: FontsWeightManager.bold);
 }
+
+// Italic
+TextStyle getItalicStyle({required Color color ,double fontSize = FontSize.s12 }){
+  return _getTextStyle(color: color, fontSize: fontSize, fontWeight: FontsWeightManager.italic);
+}

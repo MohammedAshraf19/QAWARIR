@@ -8,6 +8,7 @@ import 'fonts_manager.dart';
 ThemeData myTheme(){
   return ThemeData(
     // main color
+    scaffoldBackgroundColor: ColorManager.white,
     primaryColor: ColorManager.primary,
     // card theme
     cardTheme: CardTheme(
@@ -18,7 +19,6 @@ ThemeData myTheme(){
     appBarTheme: AppBarTheme(
       color: ColorManager.white,
       elevation: AppSize.s0,
-
     ),
       // ElevatedButtonTheme
       elevatedButtonTheme: ElevatedButtonThemeData(

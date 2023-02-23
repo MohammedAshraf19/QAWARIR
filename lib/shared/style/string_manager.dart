@@ -11,7 +11,7 @@ class AppStrings {
       'Borem ipsum dolor sit amet consectetur. Borem ipsum dolor sit amet consectetur';
   static const onBoardingSubTitle4 =
       'Borem ipsum dolor sit amet consectetur. Borem ipsum dolor sit amet consectetur';
-
+// Login && Register
   static const signIn = 'Sign in';
   static const signUp = 'Sign up';
   static const fullName = 'Full Name';
@@ -24,4 +24,9 @@ class AppStrings {
   static const createOne = 'Create one';
   static const rememberMe = 'remember me';
   static const forgetPassword = 'Forget Password?';
+
+ // Home
+static const homeTitle = 'Start Scanning !';
+static const homeSubTitle = 'Here you can see the  patients result that you have scanned their X-Rays.';
+
 }
