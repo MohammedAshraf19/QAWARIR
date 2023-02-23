@@ -13,12 +13,6 @@ class QawarirLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarBrightness: Brightness.dark,
-          systemNavigationBarColor: ColorManager.black,
-          statusBarColor: ColorManager.white,
-          statusBarIconBrightness: Brightness.dark,
-        ),
         title: TextFormField(
           decoration: InputDecoration(
             prefixIcon: Icon(Icons.search),

@@ -17,8 +17,10 @@ ThemeData myTheme() {
 
       // appBar Theme
       appBarTheme: AppBarTheme(
-        systemOverlayStyle:
-            SystemUiOverlayStyle(statusBarColor: ColorManager.white),
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: ColorManager.white,
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.dark),
         color: ColorManager.white,
         elevation: AppSize.s0,
       ),
