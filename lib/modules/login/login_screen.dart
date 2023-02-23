@@ -43,13 +43,13 @@ class BuildScreenState extends State<BuildScreen> {
             ? AutovalidateMode.onUserInteraction
             : AutovalidateMode.disabled,
         decoration: InputDecoration(
-          fillColor: ColorManager.lightPink,
+          fillColor: ColorManager.grey,
           enabledBorder: UnderlineInputBorder(
               borderSide:
-                  BorderSide(color: ColorManager.darkPink, width: AppSize.s2)),
+                  BorderSide(color: ColorManager.primary, width: AppSize.s2)),
           focusedBorder: UnderlineInputBorder(
               borderSide:
-                  BorderSide(color: ColorManager.darkPink, width: AppSize.s3)),
+                  BorderSide(color: ColorManager.primary, width: AppSize.s3)),
           label: Text(label),
           floatingLabelStyle:
               const TextStyle(fontSize: FontSize.s16, color: Colors.grey),
@@ -67,7 +67,7 @@ class BuildScreenState extends State<BuildScreen> {
     return SizedBox(
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: ColorManager.darkPink,
+            backgroundColor: ColorManager.primary,
             disabledBackgroundColor: Colors.grey,
             minimumSize: const Size.fromHeight(50),
             shape: RoundedRectangleBorder(
@@ -112,16 +112,15 @@ class BuildScreenState extends State<BuildScreen> {
           onTap: () {
             Navigator.push(
                 context,
-              MaterialPageRoute(builder: (context)=>const RegisterScreen())
-
-            );
+                MaterialPageRoute(
+                    builder: (context) => const RegisterScreen()));
           },
           child: Text(
             AppStrings.createOne,
             style: TextStyle(
                 decoration: TextDecoration.underline,
                 fontSize: FontSize.s14,
-                color: ColorManager.darkPink),
+                color: ColorManager.primary),
           ),
         )
       ],
@@ -131,7 +130,7 @@ class BuildScreenState extends State<BuildScreen> {
       children: [
         Checkbox(
           value: isChecked,
-          activeColor: ColorManager.darkPink,
+          activeColor: ColorManager.primary,
           onChanged: (newBool) {
             setState(() {
               isChecked = newBool;
@@ -151,7 +150,7 @@ class BuildScreenState extends State<BuildScreen> {
           child: Text(
             AppStrings.forgetPassword,
             style: TextStyle(
-                color: ColorManager.darkPink,
+                color: ColorManager.primary,
                 decoration: TextDecoration.underline),
           ),
         )
@@ -205,8 +204,14 @@ class BuildScreenState extends State<BuildScreen> {
                 buildTextField(passwordController, AppStrings.password, true),
                 optionsRow,
                 smallEmptyBox,
-                buildBigButton(AppStrings.signIn,
-                    enableButton ? () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>QawarirLayout())): null),
+                buildBigButton(
+                    AppStrings.signIn,
+                    enableButton
+                        ? () => Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => QawarirLayout()))
+                        : null),
                 smallEmptyBox,
                 haveAccount,
               ],

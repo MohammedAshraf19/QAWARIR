@@ -45,13 +45,13 @@ class _BuildScreenState extends State<BuildScreen> {
             ? AutovalidateMode.onUserInteraction
             : AutovalidateMode.disabled,
         decoration: InputDecoration(
-          fillColor: ColorManager.lightPink,
+          fillColor: ColorManager.grey,
           enabledBorder: UnderlineInputBorder(
               borderSide:
-                  BorderSide(color: ColorManager.darkPink, width: AppSize.s2)),
+                  BorderSide(color: ColorManager.primary, width: AppSize.s2)),
           focusedBorder: UnderlineInputBorder(
               borderSide:
-                  BorderSide(color: ColorManager.darkPink, width: AppSize.s3)),
+                  BorderSide(color: ColorManager.primary, width: AppSize.s3)),
           label: Text(label),
           floatingLabelStyle:
               const TextStyle(fontSize: FontSize.s16, color: Colors.grey),
@@ -70,7 +70,7 @@ class _BuildScreenState extends State<BuildScreen> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             minimumSize: const Size.fromHeight(50),
-            backgroundColor: ColorManager.darkPink,
+            backgroundColor: ColorManager.primary,
             disabledBackgroundColor: Colors.grey,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30))),
@@ -120,8 +120,7 @@ class _BuildScreenState extends State<BuildScreen> {
             style: TextStyle(
                 decoration: TextDecoration.underline,
                 fontSize: FontSize.s14,
-                color: ColorManager.darkPink
-            ),
+                color: ColorManager.primary),
           ),
         )
       ],
@@ -182,8 +181,14 @@ class _BuildScreenState extends State<BuildScreen> {
                 smallEmptyBox,
                 buildTextField(passwordController, AppStrings.password, true),
                 smallEmptyBox,
-                buildBigButton(AppStrings.signIn,
-                    enableButton ? () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>QawarirLayout())) : null),
+                buildBigButton(
+                    AppStrings.signIn,
+                    enableButton
+                        ? () => Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => QawarirLayout()))
+                        : null),
                 smallEmptyBox,
                 haveAccount,
               ],
