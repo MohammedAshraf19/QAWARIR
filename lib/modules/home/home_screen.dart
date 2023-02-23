@@ -1,21 +1,120 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:qawarir/shared/style/asset_manager.dart';
 import 'package:qawarir/shared/style/color_manager.dart';
+import 'package:qawarir/shared/style/fonts_manager.dart';
+import 'package:qawarir/shared/style/string_manager.dart';
+import 'package:qawarir/shared/style/styles_manager.dart';
+import 'package:qawarir/shared/style/values_manager.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Center(
-          child: Text('Home Screen',
-          style: TextStyle(
-            color: ColorManager.primary
-          ),),
+    return ListView.builder(
+        itemBuilder: (context,index)=>buildNot(),
+        physics: const BouncingScrollPhysics(),
+        itemCount: 10,
+    );
+  }
+  Widget buildZeroNot(context){
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Image(
+            image: AssetImage(
+              AssetManager.homeAsset,
+            ),
+          ),
+          const SizedBox(
+            height: AppSize.s12,
+          ),
+          Text(
+            AppStrings.homeTitle,
+            style: getMediumStyle(color: ColorManager.black,fontSize: FontSize.s22),
+          ),
+          const SizedBox(
+            height: AppSize.s8,
+          ),
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/10),
+            child: Text(
+              AppStrings.homeSubTitle,
+              style: getRegularStyle(color: ColorManager.homeSubTitleColor,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  Widget buildNot(){
+    return  Padding(
+      padding: const EdgeInsets.only(left: AppPadding.p12,right: AppPadding.p12,top: AppPadding.p8),
+      child: Card(
+        color: ColorManager.grey2,
+        child: Padding(
+          padding: const EdgeInsets.all(AppPadding.p12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IconButton(
+                onPressed: (){},
+                icon: Icon(
+                  Icons.menu,
+                  color: ColorManager.grey3,
+                ),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Mohammed Ahmed',
+                    style: getBoldStyle(color: ColorManager.black,fontSize: FontSize.s16),
+                  ),
+                  SizedBox(
+                    height: AppSize.s4,
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.list_alt,
+                        size: AppSize.s12,
+                      ),
+                      SizedBox(
+                        width: AppSize.s3,
+                      ),
+                      Text(
+                        'malignant',
+                        style: getRegularStyle(color: ColorManager.yellow,fontSize: FontSize.s16),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: AppSize.s4,
+                  ),
+                  Text(
+                    'Feb 15, 2023',
+                    style: getItalicStyle(color: ColorManager.grey3),
+                  ),
+                ],
+              ),
+              Spacer(),
+              Image(
+                  image: AssetImage(AssetManager.homeResult)
+              ),
+            ],
+          ),
         ),
-      ],
+      ),
     );
   }
 }
+

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:qawarir/modules/home/home_screen.dart';
 import 'package:qawarir/shared/style/color_manager.dart';
+import 'package:qawarir/shared/style/styles_manager.dart';
 import 'package:qawarir/shared/style/values_manager.dart';
 
 class QawarirLayout extends StatelessWidget {
@@ -9,7 +11,54 @@ class QawarirLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarBrightness: Brightness.dark,
+          systemNavigationBarColor: ColorManager.black,
+          statusBarColor: ColorManager.white,
+          statusBarIconBrightness: Brightness.dark,
+        ),
+        title: TextFormField(
+          decoration: InputDecoration(
+            prefixIcon: Icon(
+              Icons.search
+            ),
+            labelText: 'Search',
+            labelStyle:getMediumStyle(color: ColorManager.grey3) ,
+            fillColor: ColorManager.homeFormField,
+            prefixIconColor: ColorManager.grey3,
+            enabledBorder:OutlineInputBorder(
+              borderRadius: BorderRadius.circular(AppSize.s60),
+              borderSide: BorderSide(
+                width: 0,
+                color: ColorManager.grey
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(AppSize.s60),
+                borderSide: BorderSide(
+                    width: 0,
+                    color: ColorManager.grey3,
+                )
+            ),
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: AppPadding.p12),
+            child: FloatingActionButton(
+              mini: true,
+              elevation: 0,
+              backgroundColor: ColorManager.grey2,
+                onPressed: (){},
+              child: Icon(
+                Icons.notifications_none_outlined,
+                color: ColorManager.black.withOpacity(0.8),
+              ),
+            ),
+          )
+        ],
+      ),
       body: const HomeScreen(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(

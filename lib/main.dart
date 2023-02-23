@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'QAWARIR',
       theme: myTheme(),
-      home: const SplashScreen(),
+      home: const QawarirLayout(),
     );
   }
 }
