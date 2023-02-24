@@ -28,5 +28,4 @@ class AppStrings {
  // Home
 static const homeTitle = 'Start Scanning !';
 static const homeSubTitle = 'Here you can see the  patients result that you have scanned their X-Rays.';
-
 }
