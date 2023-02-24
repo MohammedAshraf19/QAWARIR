@@ -215,11 +215,7 @@ class _QawarirLayoutState extends State<QawarirLayout> {
       body: const HomeScreen(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            inProfile = false;
-          });
-        },
+        onPressed: () {},
         backgroundColor: ColorManager.primary,
         child: const Icon(Icons.upload),
       ),
@@ -256,22 +252,25 @@ class _QawarirLayoutState extends State<QawarirLayout> {
                       barrierColor: ColorManager.primary,
                       context: context,
                       builder: (context) {
-                        return SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              closeIcon,
-                              account,
-                              drawLine,
-                              _buildSettingRow('Account', () => null),
-                              _buildSettingRow('Language', () => null),
-                              drawLine,
-                              _buildDocRow('What\'s new', () => null),
-                              _buildDocRow('FAQ', () => null),
-                              _buildDocRow('Terms of Service', () => null),
-                              _buildDocRow('Privacy Policy', () => null),
-                              lightMode,
-                              logOut
-                            ],
+                        return FractionallySizedBox(
+                          heightFactor: 1,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                closeIcon,
+                                account,
+                                drawLine,
+                                _buildSettingRow('Account', () => null),
+                                _buildSettingRow('Language', () => null),
+                                drawLine,
+                                _buildDocRow('What\'s new', () => null),
+                                _buildDocRow('FAQ', () => null),
+                                _buildDocRow('Terms of Service', () => null),
+                                _buildDocRow('Privacy Policy', () => null),
+                                lightMode,
+                                logOut,
+                              ],
+                            ),
                           ),
                         );
                       }).then((value) {
