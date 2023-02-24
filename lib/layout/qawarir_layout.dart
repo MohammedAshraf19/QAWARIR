@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qawarir/modules/home/home_screen.dart';
+import 'package:qawarir/shared/style/asset_manager.dart';
 import 'package:qawarir/shared/style/color_manager.dart';
 import 'package:qawarir/shared/style/styles_manager.dart';
 import 'package:qawarir/shared/style/values_manager.dart';
@@ -204,10 +205,11 @@ class _QawarirLayoutState extends State<QawarirLayout> {
               elevation: 0,
               backgroundColor: ColorManager.grey2,
               onPressed: () {},
-              child: Icon(
-                Icons.notifications_none_outlined,
-                color: ColorManager.black.withOpacity(0.8),
+              child:const Image(
+                image: AssetImage(
+                  AssetManager.homeNotificationIcon,
               ),
+              )
             ),
           )
         ],

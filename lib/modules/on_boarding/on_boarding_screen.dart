@@ -132,16 +132,16 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               controller: pageController,
               count: border.length,
               effect:  ExpandingDotsEffect(
-                dotColor: Colors.grey,
+                dotColor: ColorManager.white.withOpacity(.2),
                 activeDotColor: ColorManager.white,
-                dotHeight: 7,
+                dotHeight: 8,
                 expansionFactor: 4,
-                dotWidth: 10,
+                dotWidth: 12,
                 spacing: 4,
               ),
             ),
-            const SizedBox(
-              height: AppSize.s20,
+             SizedBox(
+              height: MediaQuery.of(context).size.height/8,
             ),
             if(isLast!=true)
               Container(
@@ -152,7 +152,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   onPressed: (){
                     pageController.nextPage(duration: const Duration(
                         milliseconds: 750
-                    ), curve: Curves.fastLinearToSlowEaseIn
+                    ), curve: Curves.fastOutSlowIn
                     );
                   },
                   child: Text(
@@ -171,15 +171,16 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
                     },
                     child: Text(
-                      'Get Started',
+                      'Create an Account',
                       style: getMediumStyle(color: ColorManager.primary),
                     )
                 ),
               ),
-            TextButton(
+            if(isLast!=true)
+              TextButton(
                 onPressed: (){
                   Navigator.pushReplacement(
-                      context, 
+                      context,
                       MaterialPageRoute(builder: (context)=>LoginScreen())
                   );
                 },
@@ -190,6 +191,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ),
             const SizedBox(
               height: AppSize.s20,
+            ),
+            if(isLast==true)
+              const SizedBox(
+              height: AppSize.s50,
             ),
           ],
         ),

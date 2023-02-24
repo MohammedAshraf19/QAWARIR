@@ -12,7 +12,23 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
+      appBar: AppBar(
+        actions: [
+          TextButton(
+            onPressed: (){
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context)=>QawarirLayout())
+              );
+            },
+            child: Text(
+              'skip',
+              style: getMediumStyle(color: ColorManager.black),
+            ),
+          ),
+        ],
+      ),
       body: BuildScreen(),
     );
   }
@@ -51,10 +67,8 @@ class BuildScreenState extends State<BuildScreen> {
               borderSide:
                   BorderSide(color: ColorManager.primary, width: AppSize.s3)),
           label: Text(label),
-          floatingLabelStyle:
-              const TextStyle(fontSize: FontSize.s16, color: Colors.grey),
-          labelStyle:
-              const TextStyle(fontSize: FontSize.s16, color: Colors.grey),
+         // floatingLabelStyle: TextStyle(fontSize: FontSize.s16, color: ColorManager.primary),
+          labelStyle: getRegularStyle(color: ColorManager.primary),
         ),
         validator: (String? value) {
           if (value != null) {
@@ -106,7 +120,7 @@ class BuildScreenState extends State<BuildScreen> {
       children: [
         Text(
           AppStrings.dontHaveAccount,
-          style: TextStyle(fontSize: FontSize.s14, color: ColorManager.black),
+          style: getRegularStyle(color: ColorManager.black,fontSize: FontSize.s14),
         ),
         GestureDetector(
           onTap: () {
@@ -119,8 +133,10 @@ class BuildScreenState extends State<BuildScreen> {
             AppStrings.createOne,
             style: TextStyle(
                 decoration: TextDecoration.underline,
-                fontSize: FontSize.s14,
-                color: ColorManager.primary),
+                fontSize: FontSize.s16,
+                fontWeight: FontsWeightManager.medium,
+                color: ColorManager.primary
+            ),
           ),
         )
       ],

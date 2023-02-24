@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemBuilder: (context,index)=>buildNot(),
+        itemBuilder: (context,index)=>buildNot(context),
         physics: const BouncingScrollPhysics(),
         itemCount: 10,
     );
@@ -52,7 +52,8 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-  Widget buildNot(){
+
+  Widget buildNot(context){
     return  Padding(
       padding: const EdgeInsets.only(left: AppPadding.p12,right: AppPadding.p12,top: AppPadding.p8),
       child: Card(
@@ -60,13 +61,12 @@ class HomeScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(AppPadding.p12),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconButton(
-                onPressed: (){},
-                icon: Icon(
-                  Icons.menu,
-                  color: ColorManager.grey3,
+              Padding(
+                padding:  EdgeInsets.only(bottom: MediaQuery.of(context).size.height/20),
+                child: IconButton(
+                  onPressed: (){},
+                  icon: Image(image: AssetImage(AssetManager.homeMenueIcon)),
                 ),
               ),
               const SizedBox(
@@ -80,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                     style: getBoldStyle(color: ColorManager.black,fontSize: FontSize.s16),
                   ),
                   SizedBox(
-                    height: AppSize.s4,
+                    height: AppSize.s8,
                   ),
                   Row(
                     children: [
@@ -98,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: AppSize.s4,
+                    height: AppSize.s8,
                   ),
                   Text(
                     'Feb 15, 2023',

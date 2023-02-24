@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qawarir/layout/qawarir_layout.dart';
 import 'package:qawarir/modules/login/login_screen.dart';
+import 'package:qawarir/modules/on_boarding/on_boarding_screen.dart';
 import 'package:qawarir/modules/splash/splash_screen.dart';
 import 'package:qawarir/shared/style/theme_manager.dart';
 import 'modules/register/Register_screen.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'QAWARIR',
       theme: myTheme(),
-      home: const QawarirLayout(),
+      home: const SplashScreen(),
     );
   }
 }

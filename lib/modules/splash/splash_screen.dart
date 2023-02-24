@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:qawarir/modules/on_boarding/on_boarding_screen.dart';
 import 'package:qawarir/shared/components/constants.dart';
 import 'package:qawarir/shared/style/asset_manager.dart';
@@ -34,6 +35,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: ColorManager.primary,
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.dark),
+        backgroundColor: ColorManager.primary,
+      ),
       backgroundColor: ColorManager.primary,
       body: const Center(
         child: Image(

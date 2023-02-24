@@ -1,4 +1,5 @@
 const String imagePath = 'assets/images';
+const String iconPath = 'assets/icons';
 class AssetManager
 {
   static const String splashLogo = '$imagePath/splash_logo.png';
@@ -11,4 +12,6 @@ class AssetManager
   // HOME
   static const String homeAsset = '$imagePath/home.png';
   static const String homeResult = '$imagePath/homeResult.png';
+  static const String homeMenueIcon = '$iconPath/menue_icon.png';
+  static const String homeNotificationIcon = '$iconPath/homeNotification_icon.png';
 }
