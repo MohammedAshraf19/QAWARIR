@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:qawarir/modules/home/home_screen.dart';
 import 'package:qawarir/shared/style/asset_manager.dart';
 import 'package:qawarir/shared/style/color_manager.dart';
+import 'package:qawarir/shared/style/fonts_manager.dart';
 import 'package:qawarir/shared/style/styles_manager.dart';
 import 'package:qawarir/shared/style/values_manager.dart';
 
@@ -29,7 +30,7 @@ class _QawarirLayoutState extends State<QawarirLayout> {
               padding: const EdgeInsets.only(left: 8.0),
               child: Text(
                 text,
-                style: getRegularStyle(color: Colors.black),
+                style: getBoldStyle(color: Colors.black,fontSize: FontSize.s16),
               ),
             )),
             const Icon(Icons.arrow_forward_ios)
@@ -54,7 +55,7 @@ class _QawarirLayoutState extends State<QawarirLayout> {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
                   text,
-                  style: getRegularStyle(color: Colors.black),
+                  style: getBoldStyle(color: Colors.black,fontSize: FontSize.s16),
                 ),
               )),
               const Icon(Icons.login_rounded)
@@ -72,14 +73,23 @@ class _QawarirLayoutState extends State<QawarirLayout> {
       child: Row(
         children: [
           Expanded(child: Container()),
-          IconButton(
-              onPressed: () {
+          Padding(
+            padding: const EdgeInsets.all(AppPadding.p12),
+            child: InkWell(
+              onTap: (){
                 Navigator.of(context).pop();
               },
-              icon: const Icon(
-                Icons.close,
-                color: Colors.black,
-              ))
+              child: Container(
+                height: 32,
+                width: 32,
+                color: ColorManager.grey,
+                child: const Icon(
+                  Icons.close,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -110,7 +120,7 @@ class _QawarirLayoutState extends State<QawarirLayout> {
             ),
             Text(
               '@user_email',
-              style: getMediumStyle(color: Colors.grey),
+              style: getRegularStyle(color: ColorManager.black.withOpacity(0.8),fontSize: FontSize.s12),
             ),
           ],
         )
@@ -152,18 +162,19 @@ class _QawarirLayoutState extends State<QawarirLayout> {
     );
 
     Widget logOut = Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(AppPadding.p12),
       child: TextButton(
           style: TextButton.styleFrom(
-            backgroundColor: ColorManager.grey,
+            backgroundColor: ColorManager.primary.withOpacity(0.1),
             fixedSize: Size(200, 40),
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.s16)),
           ),
-          onPressed: () => null,
+          onPressed: () {
+          },
           child: Text(
             'Logout',
-            style: TextStyle(color: ColorManager.primary),
+            style: getBoldStyle(color: ColorManager.primaryBold,fontSize: FontSize.s16),
           )),
     );
 
@@ -248,7 +259,8 @@ class _QawarirLayoutState extends State<QawarirLayout> {
                           borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(32),
                         topRight: Radius.circular(32),
-                      )),
+                      )
+                      ),
                       isScrollControlled: true,
                       useSafeArea: true,
                       barrierColor: ColorManager.primary,
@@ -262,15 +274,22 @@ class _QawarirLayoutState extends State<QawarirLayout> {
                                 closeIcon,
                                 account,
                                 drawLine,
-                                _buildSettingRow('Account', () => null),
-                                _buildSettingRow('Language', () => null),
-                                drawLine,
-                                _buildDocRow('What\'s new', () => null),
-                                _buildDocRow('FAQ', () => null),
-                                _buildDocRow('Terms of Service', () => null),
-                                _buildDocRow('Privacy Policy', () => null),
-                                lightMode,
-                                logOut,
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      _buildSettingRow('Account', () => null),
+                                      _buildSettingRow('Language', () => null),
+                                      drawLine,
+                                      _buildDocRow('What\'s new', () => null),
+                                      _buildDocRow('FAQ', () => null),
+                                      _buildDocRow('Terms of Service', () => null),
+                                      _buildDocRow('Privacy Policy', () => null),
+                                      lightMode,
+                                      logOut,
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
                           ),
