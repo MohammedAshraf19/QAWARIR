@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qawarir/modules/home/home_screen.dart';
+import 'package:qawarir/modules/profile/profile_screen.dart';
 import 'package:qawarir/shared/style/color_manager.dart';
 import 'package:qawarir/shared/style/styles_manager.dart';
 import 'package:qawarir/shared/style/values_manager.dart';
@@ -10,37 +11,25 @@ class QawarirLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarBrightness: Brightness.dark,
-          systemNavigationBarColor: ColorManager.black,
-          statusBarColor: ColorManager.white,
-          statusBarIconBrightness: Brightness.dark,
-        ),
         title: TextFormField(
           decoration: InputDecoration(
-            prefixIcon: Icon(
-              Icons.search
-            ),
+            prefixIcon: Icon(Icons.search),
             labelText: 'Search',
-            labelStyle:getMediumStyle(color: ColorManager.grey3) ,
+            labelStyle: getMediumStyle(color: ColorManager.grey3),
             fillColor: ColorManager.homeFormField,
             prefixIconColor: ColorManager.grey3,
-            enabledBorder:OutlineInputBorder(
+            enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSize.s60),
-              borderSide: BorderSide(
-                width: 0,
-                color: ColorManager.grey
-              ),
+              borderSide: BorderSide(width: 0, color: ColorManager.grey),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(AppSize.s60),
+                borderRadius: BorderRadius.circular(AppSize.s60),
                 borderSide: BorderSide(
-                    width: 0,
-                    color: ColorManager.grey3,
-                )
-            ),
+                  width: 0,
+                  color: ColorManager.grey3,
+                )),
           ),
         ),
         actions: [
@@ -50,7 +39,7 @@ class QawarirLayout extends StatelessWidget {
               mini: true,
               elevation: 0,
               backgroundColor: ColorManager.grey2,
-                onPressed: (){},
+              onPressed: () {},
               child: Icon(
                 Icons.notifications_none_outlined,
                 color: ColorManager.black.withOpacity(0.8),
@@ -62,39 +51,46 @@ class QawarirLayout extends StatelessWidget {
       body: const HomeScreen(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: () {},
         backgroundColor: ColorManager.primary,
-        child: const Icon(
-            Icons.upload
-        ),
+        child: const Icon(Icons.upload),
       ),
       bottomNavigationBar: BottomAppBar(
-        height: MediaQuery.of(context).size.height/12,
+        height: MediaQuery.of(context).size.height / 12,
         color: ColorManager.grey2,
         shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-                onPressed: (){},
+                onPressed: () {},
                 icon: Icon(
                   Icons.home,
-                  color:ColorManager.primary,
+                  color: ColorManager.primary,
                   size: AppSize.s34,
-                )
-            ),
+                )),
             SizedBox(
-              width:MediaQuery.of(context).size.width/13 ,
+              width: MediaQuery.of(context).size.width / 13,
             ),
             IconButton(
-                onPressed: (){
+                onPressed: () {
+                  showModalBottomSheet(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(32),
+                        topRight: Radius.circular(32),
+                      )),
+                      isScrollControlled: true,
+                      useSafeArea: true,
+                      barrierColor: ColorManager.primary,
+                      context: context,
+                      builder: (context) => ProfileScreen());
                 },
                 icon: Icon(
                   Icons.account_circle,
                   size: AppSize.s34,
-                  color:ColorManager.grey3,
-                )
-            ),
+                  color: ColorManager.grey3,
+                )),
           ],
         ),
       ),
