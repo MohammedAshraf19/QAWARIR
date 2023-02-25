@@ -56,7 +56,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 itemBuilder: (context, index) {
                   return Stack(
                     children: [
+                      //white container with photo
                       ClipPath(
+                        clipper: CustomClipPath(),
                         child: Container(
                           height: MediaQuery.of(context).size.height * 0.32,
                           width: MediaQuery.of(context).size.width,
@@ -73,8 +75,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             ),
                           ),
                         ),
-                        clipper: CustomClipPath(),
                       ),
+                      // tape photo
                       Positioned(
                         top: MediaQuery.of(context).size.height / 100,
                         child: Image(
@@ -86,25 +88,29 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           //  height: 500,
                         ),
                       ),
+                      //why this box?
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 4,
                       ),
+                      //title
                       Positioned(
                         top: MediaQuery.of(context).size.height / 2.3,
-                        left: MediaQuery.of(context).size.width / 3.4,
+                        left: MediaQuery.of(context).size.width / 5.5,
                         width: MediaQuery.of(context).size.width / 1.5,
                         child: Text(
                           border[index].title,
                           style: getBoldStyle(color: ColorManager.white),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                       const SizedBox(
                         height: AppSize.s12,
                       ),
+                      //subtitle
                       Positioned(
                         top: MediaQuery.of(context).size.height / 2,
-                        left: MediaQuery.of(context).size.width / 6,
-                        width: MediaQuery.of(context).size.width / 1.5,
+                        left: MediaQuery.of(context).size.width / 7.3,
+                        width: MediaQuery.of(context).size.width / 1.3,
                         child: Text(
                           border[index].body,
                           style: getRegularStyle(color: ColorManager.white),
