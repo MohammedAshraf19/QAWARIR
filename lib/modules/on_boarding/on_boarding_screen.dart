@@ -45,6 +45,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   ];
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: ColorManager.white,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.dark));
     return Scaffold(
       backgroundColor: ColorManager.primary,
       body: SafeArea(
