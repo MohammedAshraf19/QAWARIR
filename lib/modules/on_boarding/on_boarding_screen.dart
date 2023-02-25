@@ -43,168 +43,181 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         title: AppStrings.onBoardingTitle3,
         body: AppStrings.onBoardingSubTitle3),
   ];
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  //       statusBarColor: ColorManager.white,
+  //       statusBarIconBrightness: Brightness.dark,
+  //       statusBarBrightness: Brightness.dark));
+  // }
+
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: ColorManager.white,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.dark));
     return Scaffold(
       backgroundColor: ColorManager.primary,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: PageView.builder(
-                itemBuilder: (context, index) {
-                  return Stack(
-                    children: [
-                      //white container with photo
-                      ClipPath(
-                        clipper: CustomClipPath(),
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.32,
-                          width: MediaQuery.of(context).size.width,
-                          color: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: AppPadding.p18, top: AppPadding.p16),
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Image(
-                                image: AssetImage(border[index].image),
-                                //  height: 500,
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+            statusBarColor: ColorManager.white,
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.dark),
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: PageView.builder(
+                  itemBuilder: (context, index) {
+                    return Stack(
+                      children: [
+                        //white container with photo
+                        ClipPath(
+                          clipper: CustomClipPath(),
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.32,
+                            width: MediaQuery.of(context).size.width,
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: AppPadding.p18, top: AppPadding.p16),
+                              child: Align(
+                                alignment: Alignment.topLeft,
+                                child: Image(
+                                  image: AssetImage(border[index].image),
+                                  //  height: 500,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      // tape photo
-                      Positioned(
-                        top: MediaQuery.of(context).size.height / 100,
-                        child: Image(
-                          image: const AssetImage(AssetManager.onBoarding),
-                          height: MediaQuery.of(context).size.height / 2.5,
-                          width: MediaQuery.of(context).size.width,
-                          // to make image take full width
-                          fit: BoxFit.fill,
-                          //  height: 500,
+                        // tape photo
+                        Positioned(
+                          top: MediaQuery.of(context).size.height / 100,
+                          child: Image(
+                            image: const AssetImage(AssetManager.onBoarding),
+                            height: MediaQuery.of(context).size.height / 2.5,
+                            width: MediaQuery.of(context).size.width,
+                            // to make image take full width
+                            fit: BoxFit.fill,
+                            //  height: 500,
+                          ),
                         ),
-                      ),
-                      //why this box?
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 4,
-                      ),
-                      //title
-                      Positioned(
-                        top: MediaQuery.of(context).size.height / 2.3,
-                        left: MediaQuery.of(context).size.width / 5.5,
-                        width: MediaQuery.of(context).size.width / 1.5,
-                        child: Text(
-                          border[index].title,
-                          style: getBoldStyle(color: ColorManager.white),
-                          textAlign: TextAlign.center,
+                        //why this box?
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 4,
                         ),
-                      ),
-                      const SizedBox(
-                        height: AppSize.s12,
-                      ),
-                      //subtitle
-                      Positioned(
-                        top: MediaQuery.of(context).size.height / 2,
-                        left: MediaQuery.of(context).size.width / 7.3,
-                        width: MediaQuery.of(context).size.width / 1.3,
-                        child: Text(
-                          border[index].body,
-                          style: getRegularStyle(color: ColorManager.white),
-                          textAlign: TextAlign.center,
+                        //title
+                        Positioned(
+                          top: MediaQuery.of(context).size.height / 2.3,
+                          left: MediaQuery.of(context).size.width / 5.5,
+                          width: MediaQuery.of(context).size.width / 1.5,
+                          child: Text(
+                            border[index].title,
+                            style: getBoldStyle(color: ColorManager.white),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                },
-                itemCount: border.length,
-                controller: pageController,
-                physics: const BouncingScrollPhysics(),
-                onPageChanged: (int index) {
-                  if (index == border.length - 1) {
-                    setState(() {
-                      isLast = true;
-                    });
-                  } else {
-                    setState(() {
-                      isLast = false;
-                    });
-                  }
-                },
-              ),
-            ),
-            SmoothPageIndicator(
-              controller: pageController,
-              count: border.length,
-              effect: ExpandingDotsEffect(
-                dotColor: ColorManager.white.withOpacity(.2),
-                activeDotColor: ColorManager.white,
-                dotHeight: 8,
-                expansionFactor: 4,
-                dotWidth: 12,
-                spacing: 4,
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 8,
-            ),
-            if (isLast != true)
-              Container(
-                width: MediaQuery.of(context).size.width / 1.5,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(),
-                    onPressed: () {
-                      pageController.nextPage(
-                          duration: const Duration(milliseconds: 750),
-                          curve: Curves.fastOutSlowIn);
-                    },
-                    child: Text(
-                      'Next',
-                      style: getMediumStyle(color: ColorManager.primary),
-                    )),
-              ),
-            if (isLast == true)
-              Container(
-                width: MediaQuery.of(context).size.width / 1.5,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()));
-                    },
-                    child: Text(
-                      'Create an Account',
-                      style: getMediumStyle(color: ColorManager.primary),
-                    )),
-              ),
-            if (isLast != true)
-              TextButton(
-                onPressed: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()));
-                },
-                child: Text(
-                  'skip',
-                  style: getMediumStyle(color: ColorManager.white),
+                        const SizedBox(
+                          height: AppSize.s12,
+                        ),
+                        //subtitle
+                        Positioned(
+                          top: MediaQuery.of(context).size.height / 2,
+                          left: MediaQuery.of(context).size.width / 7.3,
+                          width: MediaQuery.of(context).size.width / 1.3,
+                          child: Text(
+                            border[index].body,
+                            style: getRegularStyle(color: ColorManager.white),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                  itemCount: border.length,
+                  controller: pageController,
+                  physics: const BouncingScrollPhysics(),
+                  onPageChanged: (int index) {
+                    if (index == border.length - 1) {
+                      setState(() {
+                        isLast = true;
+                      });
+                    } else {
+                      setState(() {
+                        isLast = false;
+                      });
+                    }
+                  },
                 ),
               ),
-            const SizedBox(
-              height: AppSize.s20,
-            ),
-            if (isLast == true)
-              const SizedBox(
-                height: AppSize.s50,
+              SmoothPageIndicator(
+                controller: pageController,
+                count: border.length,
+                effect: ExpandingDotsEffect(
+                  dotColor: ColorManager.white.withOpacity(.2),
+                  activeDotColor: ColorManager.white,
+                  dotHeight: 8,
+                  expansionFactor: 4,
+                  dotWidth: 12,
+                  spacing: 4,
+                ),
               ),
-          ],
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 8,
+              ),
+              if (isLast != true)
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(),
+                      onPressed: () {
+                        pageController.nextPage(
+                            duration: const Duration(milliseconds: 750),
+                            curve: Curves.fastOutSlowIn);
+                      },
+                      child: Text(
+                        'Next',
+                        style: getMediumStyle(color: ColorManager.primary),
+                      )),
+                ),
+              if (isLast == true)
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(),
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
+                      },
+                      child: Text(
+                        'Create an Account',
+                        style: getMediumStyle(color: ColorManager.primary),
+                      )),
+                ),
+              if (isLast != true)
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()));
+                  },
+                  child: Text(
+                    'skip',
+                    style: getMediumStyle(color: ColorManager.white),
+                  ),
+                ),
+              const SizedBox(
+                height: AppSize.s20,
+              ),
+              if (isLast == true)
+                const SizedBox(
+                  height: AppSize.s50,
+                ),
+            ],
+          ),
         ),
       ),
     );
