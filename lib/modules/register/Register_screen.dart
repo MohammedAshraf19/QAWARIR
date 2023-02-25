@@ -15,8 +15,6 @@ import '../../shared/components/components.dart';
 import '../../shared/network/local/cache_helper.dart';
 
 class RegisterScreen extends StatelessWidget {
-<<<<<<< HEAD
-=======
   const RegisterScreen({super.key});
 
   @override
@@ -70,9 +68,6 @@ class _BuildScreenState extends State<BuildScreen> {
           }
         });
   }
->>>>>>> a1883cefa544af45b81e993176087a899d947590
-
-
   @override
   Widget build(BuildContext context) {
     var formKey = GlobalKey<FormState>();
