@@ -1,73 +1,29 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qawarir/layout/cubit/app_cubit.dart';
 import 'package:qawarir/modules/home/home_screen.dart';
+import 'package:qawarir/shared/components/components.dart';
+import 'package:qawarir/shared/components/constants.dart';
 import 'package:qawarir/shared/style/asset_manager.dart';
 import 'package:qawarir/shared/style/color_manager.dart';
 import 'package:qawarir/shared/style/fonts_manager.dart';
 import 'package:qawarir/shared/style/styles_manager.dart';
 import 'package:qawarir/shared/style/values_manager.dart';
 
-class QawarirLayout extends StatefulWidget {
+class QawarirLayout extends StatelessWidget {
   const QawarirLayout({Key? key}) : super(key: key);
 
   @override
-  State<QawarirLayout> createState() => _QawarirLayoutState();
-}
-
-class _QawarirLayoutState extends State<QawarirLayout> {
-  static bool inProfile = false;
-  bool light = true;
-
-  _buildSettingRow(String text, Function() function) {
-    return InkWell(
-      onTap: function,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Row(
-          children: [
-            Expanded(
-                child: Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Text(
-                text,
-                style: getBoldStyle(color: Colors.black,fontSize: FontSize.s16),
-              ),
-            )),
-            const Icon(Icons.arrow_forward_ios)
-          ],
-        ),
-      ),
-    );
-  }
-
-  _buildDocRow(String text, Function() function) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: InkWell(
-        onTap: function,
-        child: Ink(
-          height: AppSize.s40,
-          color: ColorManager.grey,
-          child: Row(
-            children: [
-              Expanded(
-                  child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  text,
-                  style: getBoldStyle(color: Colors.black,fontSize: FontSize.s16),
-                ),
-              )),
-              const Icon(Icons.login_rounded)
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
+    return BlocConsumer<AppCubit, AppState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    var cubit = AppCubit.get(context);
     Widget closeIcon = Padding(
       padding: const EdgeInsets.only(right: 12, top: 12),
       child: Row(
@@ -93,46 +49,45 @@ class _QawarirLayoutState extends State<QawarirLayout> {
         ],
       ),
     );
-
-    Widget account = Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: CircleAvatar(
-            minRadius: 45,
-            backgroundColor: ColorManager.grey,
-            child: Icon(
-              color: ColorManager.primary,
-              Icons.account_circle,
-              size: 60,
+    Widget account = SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: CircleAvatar(
+              minRadius: 45,
+              backgroundColor: ColorManager.grey,
+              backgroundImage:  NetworkImage(
+                  cubit.userModel!.image!,
+              ),
             ),
           ),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Full Name',
-              style: getBoldMediumStyle(color: ColorManager.black),
-            ),
-            Container(
-              height: AppSize.s8,
-            ),
-            Text(
-              '@user_email',
-              style: getRegularStyle(color: ColorManager.black.withOpacity(0.8),fontSize: FontSize.s12),
-            ),
-          ],
-        )
-      ],
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                cubit.userModel!.name!,
+                style: getBoldMediumStyle(color: ColorManager.black),
+              ),
+              Container(
+                height: AppSize.s8,
+              ),
+              Text(
+                cubit.userModel!.email!,
+                style: getRegularStyle(color: ColorManager.black.withOpacity(0.8),fontSize: FontSize.s12),
+              ),
+            ],
+          )
+        ],
+      ),
     );
-
     Widget drawLine = const Divider(
       indent: AppMargin.m20,
       endIndent: 20,
       height: 40,
     );
-
     Widget lightMode = Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Container(
@@ -142,25 +97,23 @@ class _QawarirLayoutState extends State<QawarirLayout> {
           children: [
             Expanded(
                 child: Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Text(
-                'Light Mode',
-                style: getRegularStyle(color: Colors.black),
-              ),
-            )),
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    'Light Mode',
+                    style: getRegularStyle(color: Colors.black),
+                  ),
+                )),
             Switch(
-                value: light,
+                value: cubit.light,
                 activeColor: ColorManager.primary,
-                onChanged: (bool value) {
-                  setState(() {
-                    light = value;
-                  });
-                })
+                onChanged: (value) {
+                  cubit.changeSwitch(value);
+                }
+            ),
           ],
         ),
       ),
     );
-
     Widget logOut = Padding(
       padding: const EdgeInsets.all(AppPadding.p12),
       child: TextButton(
@@ -168,27 +121,29 @@ class _QawarirLayoutState extends State<QawarirLayout> {
             backgroundColor: ColorManager.primary.withOpacity(0.1),
             fixedSize: Size(200, 40),
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.s16)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.s16)),
           ),
           onPressed: () {
+            signOut(context);
           },
           child: Text(
             'Logout',
             style: getBoldStyle(color: ColorManager.primaryBold,fontSize: FontSize.s16),
           )),
     );
-
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle: inProfile
+        systemOverlayStyle: cubit.inProfile
             ? SystemUiOverlayStyle(
-                statusBarColor: ColorManager.primary,
-                statusBarIconBrightness: Brightness.dark,
-                statusBarBrightness: Brightness.dark)
+            statusBarColor: ColorManager.primary,
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.dark
+        )
             : SystemUiOverlayStyle(
-                statusBarColor: ColorManager.white,
-                statusBarIconBrightness: Brightness.dark,
-                statusBarBrightness: Brightness.dark),
+            statusBarColor: ColorManager.white,
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.dark
+        ),
         title: TextFormField(
           decoration: InputDecoration(
             prefixIcon: const Icon(Icons.search),
@@ -212,23 +167,26 @@ class _QawarirLayoutState extends State<QawarirLayout> {
           Padding(
             padding: const EdgeInsets.only(right: AppPadding.p12),
             child: FloatingActionButton(
-              mini: true,
-              elevation: 0,
-              backgroundColor: ColorManager.grey2,
-              onPressed: () {},
-              child:const Image(
-                image: AssetImage(
-                  AssetManager.homeNotificationIcon,
-              ),
-              )
+                mini: true,
+                elevation: 0,
+                backgroundColor: ColorManager.grey2,
+                onPressed: () {},
+                child:const Image(
+                  image: AssetImage(
+                    AssetManager.homeNotificationIcon,
+                  ),
+                )
             ),
           )
         ],
       ),
-      body: const HomeScreen(),
+      body: HomeScreen(cubit: cubit),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        heroTag: 'home',
+        onPressed: () {
+          cubit.getTestImage();
+        },
         backgroundColor: ColorManager.primary,
         child: const Icon(Icons.upload),
       ),
@@ -251,15 +209,13 @@ class _QawarirLayoutState extends State<QawarirLayout> {
             ),
             IconButton(
                 onPressed: () {
-                  setState(() {
-                    inProfile = true;
-                  });
+                  cubit.profileTrue();
                   showModalBottomSheet(
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(32),
-                        topRight: Radius.circular(32),
-                      )
+                            topLeft: Radius.circular(32),
+                            topRight: Radius.circular(32),
+                          )
                       ),
                       isScrollControlled: true,
                       useSafeArea: true,
@@ -278,14 +234,39 @@ class _QawarirLayoutState extends State<QawarirLayout> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
                                     children: [
-                                      _buildSettingRow('Account', () => null),
-                                      _buildSettingRow('Language', () => null),
+                                      buildSettingRow('Account', () => null),
+                                      buildSettingRow('Language', () => null),
                                       drawLine,
-                                      _buildDocRow('What\'s new', () => null),
-                                      _buildDocRow('FAQ', () => null),
-                                      _buildDocRow('Terms of Service', () => null),
-                                      _buildDocRow('Privacy Policy', () => null),
-                                      lightMode,
+                                      buildDocRow('What\'s new', () => null),
+                                      buildDocRow('FAQ', () => null),
+                                      buildDocRow('Terms of Service', () => null),
+                                      buildDocRow('Privacy Policy', () => null),
+                                      Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                    child: Container(
+                                      height: AppSize.s40,
+                                      color: ColorManager.grey,
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(left: 8.0),
+                                                child: Text(
+                                                  'Light Mode',
+                                                  style: getRegularStyle(color: Colors.black),
+                                                ),
+                                              )),
+                                          Switch(
+                                              value: cubit.light,
+                                              activeColor: ColorManager.primary,
+                                              onChanged: (value) {
+                                                cubit.changeSwitch(value);
+                                              }
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                       logOut,
                                     ],
                                   ),
@@ -295,9 +276,7 @@ class _QawarirLayoutState extends State<QawarirLayout> {
                           ),
                         );
                       }).then((value) {
-                    setState(() {
-                      inProfile = !inProfile;
-                    });
+                    cubit.showProfile();
                   });
                 },
                 icon: Icon(
@@ -309,5 +288,10 @@ class _QawarirLayoutState extends State<QawarirLayout> {
         ),
       ),
     );
+  },
+);
   }
 }
+
+
+

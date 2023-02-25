@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qawarir/layout/cubit/app_cubit.dart';
 import 'package:qawarir/shared/style/asset_manager.dart';
 import 'package:qawarir/shared/style/color_manager.dart';
 import 'package:qawarir/shared/style/fonts_manager.dart';
@@ -8,15 +11,27 @@ import 'package:qawarir/shared/style/styles_manager.dart';
 import 'package:qawarir/shared/style/values_manager.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  AppCubit cubit;
+
+  HomeScreen(
+  {
+    required this.cubit
+}
+      );
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<AppCubit, AppState>(
+  listener: (context, state) {
+  },
+  builder: (context, state) {
     return ListView.builder(
         itemBuilder: (context,index)=>buildNot(context),
         physics: const BouncingScrollPhysics(),
         itemCount: 10,
     );
+  },
+);
   }
   Widget buildZeroNot(context){
     return Center(
@@ -63,7 +78,8 @@ class HomeScreen extends StatelessWidget {
           child: Row(
             children: [
               Padding(
-                padding:  EdgeInsets.only(bottom: MediaQuery.of(context).size.height/20),
+                padding:  EdgeInsets.only(bottom: MediaQuery.of(context).size.height/20
+                ),
                 child: IconButton(
                   onPressed: (){},
                   icon: Image(image: AssetImage(AssetManager.homeMenueIcon)),
@@ -107,9 +123,19 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               Spacer(),
-              Image(
-                  image: AssetImage(AssetManager.homeResult)
+                if(AppCubit.get(context).testImage == null)
+                Image(
+                  image:AssetImage(
+                      AssetManager.homeResult
+                  )
               ),
+              if(AppCubit.get(context).testImage != null)
+                Container(
+                    height: MediaQuery.of(context).size.height/9,
+                    width: MediaQuery.of(context).size.width/3.5,
+                    child: Image.file(File(cubit.testImage!.path)
+                    )
+                ),
             ],
           ),
         ),
