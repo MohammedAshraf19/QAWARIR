@@ -12,15 +12,13 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         actions: [
           TextButton(
-            onPressed: (){
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context)=>QawarirLayout())
-              );
+            onPressed: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => QawarirLayout()));
             },
             child: Text(
               'skip',
@@ -67,7 +65,7 @@ class BuildScreenState extends State<BuildScreen> {
               borderSide:
                   BorderSide(color: ColorManager.primary, width: AppSize.s3)),
           label: Text(label),
-         // floatingLabelStyle: TextStyle(fontSize: FontSize.s16, color: ColorManager.primary),
+          // floatingLabelStyle: TextStyle(fontSize: FontSize.s16, color: ColorManager.primary),
           labelStyle: getRegularStyle(color: ColorManager.primary),
         ),
         validator: (String? value) {
@@ -120,11 +118,12 @@ class BuildScreenState extends State<BuildScreen> {
       children: [
         Text(
           AppStrings.dontHaveAccount,
-          style: getRegularStyle(color: ColorManager.black,fontSize: FontSize.s14),
+          style: getRegularStyle(
+              color: ColorManager.black, fontSize: FontSize.s14),
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) => const RegisterScreen()));
@@ -135,8 +134,7 @@ class BuildScreenState extends State<BuildScreen> {
                 decoration: TextDecoration.underline,
                 fontSize: FontSize.s16,
                 fontWeight: FontsWeightManager.medium,
-                color: ColorManager.primary
-            ),
+                color: ColorManager.primary),
           ),
         )
       ],

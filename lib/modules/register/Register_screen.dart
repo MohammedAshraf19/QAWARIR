@@ -53,8 +53,8 @@ class _BuildScreenState extends State<BuildScreen> {
               borderSide:
                   BorderSide(color: ColorManager.primary, width: AppSize.s3)),
           label: Text(label),
-       //   floatingLabelStyle: const TextStyle(fontSize: FontSize.s16, color: Colors.grey),
-          labelStyle:getRegularStyle(color: ColorManager.primary),
+          //   floatingLabelStyle: const TextStyle(fontSize: FontSize.s16, color: Colors.grey),
+          labelStyle: getRegularStyle(color: ColorManager.primary),
         ),
         validator: (String? value) {
           if (value != null) {
@@ -106,11 +106,12 @@ class _BuildScreenState extends State<BuildScreen> {
       children: [
         Text(
           AppStrings.HaveAccount,
-          style: getRegularStyle(color: ColorManager.black,fontSize: FontSize.s14),
+          style: getRegularStyle(
+              color: ColorManager.black, fontSize: FontSize.s14),
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(context,
+            Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => const LoginScreen()));
           },
           child: Text(
@@ -119,8 +120,7 @@ class _BuildScreenState extends State<BuildScreen> {
                 decoration: TextDecoration.underline,
                 fontSize: FontSize.s16,
                 fontWeight: FontsWeightManager.medium,
-                color: ColorManager.primary
-            ),
+                color: ColorManager.primary),
           ),
         )
       ],
