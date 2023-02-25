@@ -15,8 +15,6 @@ import '../../shared/components/components.dart';
 import '../../shared/network/local/cache_helper.dart';
 
 class RegisterScreen extends StatelessWidget {
-<<<<<<< HEAD
-=======
   const RegisterScreen({super.key});
 
   @override
@@ -70,8 +68,6 @@ class _BuildScreenState extends State<BuildScreen> {
           }
         });
   }
->>>>>>> a1883cefa544af45b81e993176087a899d947590
-
 
   @override
   Widget build(BuildContext context) {
@@ -111,17 +107,15 @@ class _BuildScreenState extends State<BuildScreen> {
       create: (context) => RegisterCubit(),
       child: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) {
-          if(state is AppCreateUserSuccess) {
+          if (state is AppCreateUserSuccess) {
             CacheHelper.saveData(key: 'uId', value: state.uId).then((value) {
               showToast(txt: 'Access Login', state: ToastState.SUCCESS);
               uId = CacheHelper.getData(key: 'uId');
               AppCubit.get(context).getUserData();
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context)=>QawarirLayout())
-              );
+                  MaterialPageRoute(builder: (context) => QawarirLayout()));
             });
-          }
-          else if(state is AppCreateUserError){
+          } else if (state is AppCreateUserError) {
             showToast(txt: state.error, state: ToastState.ERROR);
           }
         },
@@ -147,29 +141,37 @@ class _BuildScreenState extends State<BuildScreen> {
                           authSubTitle(AppStrings.signupSubTitle),
                           smallEmptyBox(),
                           buildTextField(
-                            nameController, AppStrings.fullName, false,),
+                            nameController,
+                            AppStrings.fullName,
+                            false,
+                          ),
                           smallEmptyBox(),
                           buildTextField(
-                            emailController, AppStrings.email, false,),
+                            emailController,
+                            AppStrings.email,
+                            false,
+                          ),
                           smallEmptyBox(),
                           buildTextField(
-                            passwordController, AppStrings.password, true,),
+                            passwordController,
+                            AppStrings.password,
+                            true,
+                          ),
                           smallEmptyBox(),
                           BuildCondition(
                             condition: state is! AppRegisterLoading,
-                            builder: (context)=> buildBigButton(
-                                AppStrings.signIn,
-                                    () {
-                                      if(formKey.currentState!.validate()){
-                                        cubit.userRegister(
-                                          email: emailController.text,
-                                          password: passwordController.text,
-                                          name: nameController.text,
-                                        );
-                                      }
-                                }
-                            ),
-                            fallback: (context)=>circularIndicator(color: ColorManager.primary),
+                            builder: (context) =>
+                                buildBigButton(AppStrings.signIn, () {
+                              if (formKey.currentState!.validate()) {
+                                cubit.userRegister(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                  name: nameController.text,
+                                );
+                              }
+                            }),
+                            fallback: (context) =>
+                                circularIndicator(color: ColorManager.primary),
                           ),
                           smallEmptyBox(),
                           haveAccount,
