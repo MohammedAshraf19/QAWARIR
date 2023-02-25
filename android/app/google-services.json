@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "700896005311",
+    "project_id": "qawarir-9a7fe",
+    "storage_bucket": "qawarir-9a7fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:700896005311:android:efe128f906faaa10980a0a",
+        "android_client_info": {
+          "package_name": "com.example.qawarir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "700896005311-q8h62eb0kt3q5u8fhblv37or2eqvm9bd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.qawarir",
+            "certificate_hash": "728f913533588c73fb35a963a8283af9f1b45c8f"
+          }
+        },
+        {
+          "client_id": "700896005311-kdgdargg49ch0vfe3g74nrdib8jcakjj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2iGRFph1I8cX0TbMQuWNmRo9X-CdzSaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "700896005311-kdgdargg49ch0vfe3g74nrdib8jcakjj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
