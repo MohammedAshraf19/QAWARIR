@@ -39,7 +39,20 @@ dependencies:
   flutter_bloc: ^8.1.2
   bloc: ^8.1.1
   dio: ^5.0.0
+  buildcondition: ^0.0.4
+  shared_preferences: ^2.0.18
   smooth_page_indicator: ^1.0.1
+  fluttertoast: ^8.0.8
+  image_picker: ^0.8.6+3
+
+
+  #Firebase
+  firebase_core: ^2.7.0
+  firebase_auth: ^4.2.9
+  firebase_storage: ^11.0.14
+  cloud_firestore: ^4.4.3
+
+
 
 dev_dependencies:
   flutter_test:
