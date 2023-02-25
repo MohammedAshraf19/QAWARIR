@@ -68,10 +68,7 @@ class _BuildScreenState extends State<BuildScreen> {
           }
         });
   }
-<<<<<<< HEAD
-=======
 
->>>>>>> f11c734b97c4164ae1d8a841f83f1d97cbc5258a
   @override
   Widget build(BuildContext context) {
     var formKey = GlobalKey<FormState>();
