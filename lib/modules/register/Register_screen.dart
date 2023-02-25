@@ -15,6 +15,62 @@ import '../../shared/components/components.dart';
 import '../../shared/network/local/cache_helper.dart';
 
 class RegisterScreen extends StatelessWidget {
+<<<<<<< HEAD
+=======
+  const RegisterScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: BuildScreen(),
+    );
+  }
+}
+
+class BuildScreen extends StatefulWidget {
+  const BuildScreen({super.key});
+
+  @override
+  State<BuildScreen> createState() => _BuildScreenState();
+}
+
+class _BuildScreenState extends State<BuildScreen> {
+  bool validName = false;
+  bool validEmail = false;
+  bool validPassword = false;
+  bool enableButton = false;
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  buildTextField(
+      TextEditingController controller, String label, bool isPassword) {
+    return TextFormField(
+        controller: controller,
+        obscureText: isPassword,
+        obscuringCharacter: '*',
+        autovalidateMode: isPassword
+            ? AutovalidateMode.onUserInteraction
+            : AutovalidateMode.disabled,
+        decoration: InputDecoration(
+          fillColor: ColorManager.grey,
+          enabledBorder: UnderlineInputBorder(
+              borderSide:
+                  BorderSide(color: ColorManager.primary, width: AppSize.s2)),
+          focusedBorder: UnderlineInputBorder(
+              borderSide:
+                  BorderSide(color: ColorManager.primary, width: AppSize.s3)),
+          label: Text(label),
+          //   floatingLabelStyle: const TextStyle(fontSize: FontSize.s16, color: Colors.grey),
+          labelStyle: getRegularStyle(color: ColorManager.primary),
+        ),
+        validator: (String? value) {
+          if (value != null) {
+            return value.length < 8 ? 'Minimum password length is 8' : null;
+          }
+        });
+  }
+>>>>>>> a1883cefa544af45b81e993176087a899d947590
 
 
   @override
@@ -36,7 +92,7 @@ class RegisterScreen extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(context,
+            Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => const LoginScreen()));
           },
           child: Text(
@@ -45,8 +101,7 @@ class RegisterScreen extends StatelessWidget {
                 decoration: TextDecoration.underline,
                 fontSize: FontSize.s16,
                 fontWeight: FontsWeightManager.medium,
-                color: ColorManager.primary
-            ),
+                color: ColorManager.primary),
           ),
         )
       ],
