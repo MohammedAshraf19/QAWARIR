@@ -13,20 +13,20 @@ import 'package:qawarir/shared/style/styles_manager.dart';
 import 'package:qawarir/shared/style/values_manager.dart';
 
 class QawarirLayout extends StatelessWidget {
-  const QawarirLayout({Key? key}) : super(key: key);
-
+  var patientNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
   listener: (context, state) {
-    // if(state is AppTestImagePickedLoadingState){
-    //   showDialog(
-    //     context: context,
-    //     builder: (context)=>Lottie.asset(AssetManager.testImageAnimation),
-    //   );
-    // }
 
     if(state is AppTestImagePickedLoadingState){
+      showDialog(
+        context: context,
+        builder: (context)=>Lottie.asset(AssetManager.testImageAnimation),
+      );
+    }
+    if(state is AppTestImagePickedSuccessState){
+      Navigator.pop(context);
       showDialog(
           context: context,
           builder: (context)=>AlertDialog(
@@ -70,7 +70,82 @@ class QawarirLayout extends StatelessWidget {
                   height: MediaQuery.of(context).size.height/20,
                   width: MediaQuery.of(context).size.width/1.5,
                   child: buildBigButton(
-                      'Save', () {}
+                      'Save', () {
+                     //  Navigator.pop(context);
+                        showModalBottomSheet(
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(32),
+                                  topRight: Radius.circular(32),
+                                )
+                            ),
+                          isScrollControlled: true,
+                            context: context,
+                            builder: (context)=> Padding(
+                              padding: const EdgeInsets.all(AppPadding.p12),
+                              child: FractionallySizedBox(
+                                heightFactor: 0.4,
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                            'Save patient data',
+                                          style: getBoldStyle(color: ColorManager.black,fontSize: FontSize.s20),
+                                        ),
+                                        const Spacer(),
+                                        Padding(
+                                          padding: const EdgeInsets.all(AppPadding.p12),
+                                          child: InkWell(
+                                            onTap: (){
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Container(
+                                              height: 32,
+                                              width: 32,
+                                              color: ColorManager.grey,
+                                              child: const Icon(
+                                                Icons.close,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      'Just enter the patient\'s name. The image and date are saved automatically to avoid errors.',
+                                      style: getRegularStyle(color: ColorManager.black.withOpacity(0.5)),
+                                    ),
+                                    SizedBox(
+                                      height: MediaQuery.of(context).size.height/25,
+                                    ),
+                                    buildTextField(
+                                      patientNameController,
+                                        'Patient Name',
+                                        false,
+                                    ),
+                                    SizedBox(
+                                      height: MediaQuery.of(context).size.height/40,
+                                    ),
+                                    buildBigButton(
+                                        'Save',
+                                            () {
+                                          AppCubit.get(context).uploadTestImage(
+                                            name: patientNameController.text,
+                                            date: 'Feb 26,23',
+                                            status: 'Begin'
+                                          );
+                                          Navigator.pop(context);
+                                          Navigator.pop(context);
+                                            },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                        );
+                  }
                   ),
                 ),
               ),
@@ -86,8 +161,12 @@ class QawarirLayout extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
       );
+    }
+    if(state is AppUpdateImageSuccessState) {
+      AppCubit.get(context).getTest();
+      AppCubit.get(context).tests = [];
     }
   },
   builder: (context, state) {
@@ -96,7 +175,9 @@ class QawarirLayout extends StatelessWidget {
       padding: const EdgeInsets.only(right: 12, top: 12),
       child: Row(
         children: [
-          Expanded(child: Container()),
+          Expanded(
+              child: Container()
+          ),
           Padding(
             padding: const EdgeInsets.all(AppPadding.p12),
             child: InkWell(
@@ -249,12 +330,12 @@ class QawarirLayout extends StatelessWidget {
           )
         ],
       ),
-      body: HomeScreen(cubit: cubit),
+      body:state is! AppGetImageLoadingState? HomeScreen(cubit: cubit):Center(child: circularIndicator(color: ColorManager.primary)),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         heroTag: 'home',
         onPressed: () {
-          cubit.getTestImage();
+          cubit.getTestImage(context);
         },
         backgroundColor: ColorManager.primary,
         child: const Icon(Icons.upload),
@@ -291,7 +372,7 @@ class QawarirLayout extends StatelessWidget {
                       barrierColor: ColorManager.primary,
                       context: context,
                       builder: (context) {
-                        return FractionallySizedBox(
+                        return  FractionallySizedBox(
                           heightFactor: 1,
                           child: SingleChildScrollView(
                             child: Column(

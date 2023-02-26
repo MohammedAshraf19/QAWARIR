@@ -27,11 +27,11 @@ class HomeScreen extends StatelessWidget {
 
         },
   builder: (context, state) {
-    return ListView.builder(
-        itemBuilder: (context,index)=>buildNot(context),
+    return cubit.tests.isNotEmpty? ListView.builder(
+        itemBuilder: (context,index)=>buildNot(context,index),
         physics: const BouncingScrollPhysics(),
-        itemCount: 10,
-    );
+        itemCount: cubit.tests.length,
+    ):buildZeroNot(context);
   },
 );
   }
@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget buildNot(context){
+  Widget buildNot(context,index){
     return  Padding(
       padding: const EdgeInsets.only(left: AppPadding.p12,right: AppPadding.p12,top: AppPadding.p8),
       child: Card(
@@ -94,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Mohammed Ahmed',
+                cubit.tests[index].name!,
                     style: getBoldStyle(color: ColorManager.black,fontSize: FontSize.s16),
                   ),
                   SizedBox(
@@ -110,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                         width: AppSize.s3,
                       ),
                       Text(
-                        'malignant',
+                        cubit.tests[index].status!,
                         style: getRegularStyle(color: ColorManager.yellow,fontSize: FontSize.s16),
                       ),
                     ],
@@ -119,25 +119,17 @@ class HomeScreen extends StatelessWidget {
                     height: AppSize.s8,
                   ),
                   Text(
-                    'Feb 15, 2023',
+                    cubit.tests[index].date!,
                     style: getItalicStyle(color: ColorManager.grey3),
                   ),
                 ],
               ),
               Spacer(),
-                if(AppCubit.get(context).testImage == null)
                 Image(
-                  image:AssetImage(
-                      AssetManager.homeResult
+                  image:NetworkImage(
+                      '${cubit.tests[index].image}'
                   )
               ),
-              if(AppCubit.get(context).testImage != null)
-                Container(
-                    height: MediaQuery.of(context).size.height/9,
-                    width: MediaQuery.of(context).size.width/3.5,
-                    child: Image.file(File(cubit.testImage!.path)
-                    )
-                ),
             ],
           ),
         ),
