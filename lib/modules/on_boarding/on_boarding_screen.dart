@@ -44,25 +44,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         body: AppStrings.onBoardingSubTitle3),
   ];
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-  //       statusBarColor: ColorManager.white,
-  //       statusBarIconBrightness: Brightness.dark,
-  //       statusBarBrightness: Brightness.dark));
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.primary,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
-            statusBarColor: ColorManager.white,
-            statusBarIconBrightness: Brightness.dark,
-            statusBarBrightness: Brightness.dark),
+          statusBarColor: ColorManager.white,
+          statusBarIconBrightness: Brightness.dark,
+          systemNavigationBarColor: ColorManager.primary,
+          systemNavigationBarIconBrightness: Brightness.dark,
+        ),
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

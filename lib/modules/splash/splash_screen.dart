@@ -17,52 +17,56 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   var _timer;
-  _startDelay(){
-    _timer = Timer(const Duration(seconds: AppConstant.splashDelay),_goNext);
+  _startDelay() {
+    _timer = Timer(const Duration(seconds: AppConstant.splashDelay), _goNext);
+  }
 
-  }
-  _goNext(){
-    if(uId == null) {
+  _goNext() {
+    if (uId == null) {
       Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => OnBoardingScreen(),)
-      );
-    }
-    else {
+          MaterialPageRoute(
+            builder: (context) => OnBoardingScreen(),
+          ));
+    } else {
       Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => QawarirLayout(),)
-      );
+          MaterialPageRoute(
+            builder: (context) => QawarirLayout(),
+          ));
     }
   }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _startDelay();
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
     _timer.cancel;
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: ColorManager.primary,
-            statusBarIconBrightness: Brightness.dark,
-            statusBarBrightness: Brightness.dark),
+          statusBarColor: ColorManager.primary,
+          statusBarIconBrightness: Brightness.dark,
+          systemNavigationBarColor: ColorManager.primary,
+          systemNavigationBarIconBrightness: Brightness.dark,
+        ),
         backgroundColor: ColorManager.primary,
       ),
       backgroundColor: ColorManager.primary,
       body: const Center(
         child: Image(
-            image: AssetImage(
-              AssetManager.splashLogo
-            ),
+          image: AssetImage(AssetManager.splashLogo),
         ),
       ),
     );

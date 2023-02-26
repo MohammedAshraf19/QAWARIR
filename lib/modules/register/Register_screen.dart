@@ -1,5 +1,6 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qawarir/layout/cubit/app_cubit.dart';
 import 'package:qawarir/modules/login/login_screen.dart';
@@ -122,66 +123,74 @@ class _BuildScreenState extends State<BuildScreen> {
         builder: (context, state) {
           var cubit = RegisterCubit.get(context);
           return Scaffold(
-            body: Form(
-              key: formKey,
-              child: SafeArea(
-                child: SingleChildScrollView(
-                  child: Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          medEmptyBox(),
-                          signupPicture,
-                          medEmptyBox(),
-                          authTitle(AppStrings.signUp),
-                          smallEmptyBox(),
-                          authSubTitle(AppStrings.signupSubTitle),
-                          smallEmptyBox(),
-                          buildTextField(
-                            nameController,
-                            AppStrings.fullName,
-                            false,
+            body: AnnotatedRegion<SystemUiOverlayStyle>(
+                value: SystemUiOverlayStyle(
+                  statusBarColor: ColorManager.white,
+                  statusBarIconBrightness: Brightness.dark,
+                  systemNavigationBarColor: ColorManager.white,
+                  systemNavigationBarIconBrightness: Brightness.dark,
+                ),
+                child: Form(
+                  key: formKey,
+                  child: SafeArea(
+                    child: SingleChildScrollView(
+                      child: Center(
+                        child: Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              medEmptyBox(),
+                              signupPicture,
+                              medEmptyBox(),
+                              authTitle(AppStrings.signUp),
+                              smallEmptyBox(),
+                              authSubTitle(AppStrings.signupSubTitle),
+                              smallEmptyBox(),
+                              buildTextField(
+                                nameController,
+                                AppStrings.fullName,
+                                false,
+                              ),
+                              smallEmptyBox(),
+                              buildTextField(
+                                emailController,
+                                AppStrings.email,
+                                false,
+                              ),
+                              smallEmptyBox(),
+                              buildTextField(
+                                passwordController,
+                                AppStrings.password,
+                                true,
+                              ),
+                              smallEmptyBox(),
+                              BuildCondition(
+                                condition: state is! AppRegisterLoading,
+                                builder: (context) =>
+                                    buildBigButton(AppStrings.signUp, () {
+                                  if (formKey.currentState!.validate()) {
+                                    cubit.userRegister(
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                      name: nameController.text,
+                                    );
+                                  }
+                                }),
+                                fallback: (context) => circularIndicator(
+                                    color: ColorManager.primary),
+                              ),
+                              smallEmptyBox(),
+                              haveAccount,
+                            ],
                           ),
-                          smallEmptyBox(),
-                          buildTextField(
-                            emailController,
-                            AppStrings.email,
-                            false,
-                          ),
-                          smallEmptyBox(),
-                          buildTextField(
-                            passwordController,
-                            AppStrings.password,
-                            true,
-                          ),
-                          smallEmptyBox(),
-                          BuildCondition(
-                            condition: state is! AppRegisterLoading,
-                            builder: (context) =>
-                                buildBigButton(AppStrings.signIn, () {
-                              if (formKey.currentState!.validate()) {
-                                cubit.userRegister(
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                  name: nameController.text,
-                                );
-                              }
-                            }),
-                            fallback: (context) =>
-                                circularIndicator(color: ColorManager.primary),
-                          ),
-                          smallEmptyBox(),
-                          haveAccount,
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            ),
+                )),
           );
         },
       ),

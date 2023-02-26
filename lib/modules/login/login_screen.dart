@@ -1,5 +1,6 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qawarir/layout/qawarir_layout.dart';
 import 'package:qawarir/modules/login/cubit/login_cubit.dart';
@@ -31,24 +32,19 @@ class LoginScreen extends StatelessWidget {
             showToast(txt: state.error.toString(), state: ToastState.ERROR);
           }
           if (state is AppLoginSuccess) {
-            if (LoginCubit
-                .get(context)
-                .isRemember) {
+            if (LoginCubit.get(context).isRemember) {
               CacheHelper.saveData(key: 'uId', value: state.uId).then((value) {
                 showToast(txt: 'Access Login', state: ToastState.SUCCESS);
                 uId = CacheHelper.getData(key: 'uId');
                 AppCubit.get(context).getUserData();
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => QawarirLayout())
-                );
+                    MaterialPageRoute(builder: (context) => QawarirLayout()));
               });
-            }
-            else {
+            } else {
               showToast(txt: 'Access Login', state: ToastState.SUCCESS);
               AppCubit.get(context).getUserData();
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => QawarirLayout())
-              );
+                  MaterialPageRoute(builder: (context) => QawarirLayout()));
             }
           }
         },
@@ -64,7 +60,7 @@ class LoginScreen extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => RegisterScreen()));
@@ -75,8 +71,7 @@ class LoginScreen extends StatelessWidget {
                       decoration: TextDecoration.underline,
                       fontSize: FontSize.s16,
                       fontWeight: FontsWeightManager.medium,
-                      color: ColorManager.primary
-                  ),
+                      color: ColorManager.primary),
                 ),
               )
             ],
@@ -112,9 +107,14 @@ class LoginScreen extends StatelessWidget {
             child: Image(image: AssetImage('assets/images/login.png')),
           );
           return Scaffold(
-            appBar: AppBar(
+              body: AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle(
+              statusBarColor: ColorManager.white,
+              statusBarIconBrightness: Brightness.dark,
+              systemNavigationBarColor: ColorManager.white,
+              systemNavigationBarIconBrightness: Brightness.dark,
             ),
-            body: Form(
+            child: Form(
               key: formKey,
               child: SafeArea(
                 child: SingleChildScrollView(
@@ -126,6 +126,7 @@ class LoginScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          medEmptyBox(),
                           loginPicture,
                           bigEmptyBox(),
                           authTitle(AppStrings.signIn),
@@ -141,18 +142,17 @@ class LoginScreen extends StatelessWidget {
                           smallEmptyBox(),
                           BuildCondition(
                             condition: state is! AppLoginLoading,
-                            builder: (context) =>
-                                buildBigButton(
-                                  AppStrings.signIn,
-                                      () {
-                                    if (formKey.currentState!.validate()) {
-                                      cubit.userLogin(
-                                        email: emailController.text,
-                                        password: passwordController.text,
-                                      );
-                                    }
-                                  },
-                                ),
+                            builder: (context) => buildBigButton(
+                              AppStrings.signIn,
+                              () {
+                                if (formKey.currentState!.validate()) {
+                                  cubit.userLogin(
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                  );
+                                }
+                              },
+                            ),
                             fallback: (context) =>
                                 circularIndicator(color: ColorManager.primary),
                           ),
@@ -165,7 +165,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-          );
+          ));
         },
       ),
     );
