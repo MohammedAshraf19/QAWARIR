@@ -8,6 +8,7 @@ class ColorManager {
   static Color homeSubTitleColor = HexColor('A3AAB2');
   static Color homeFormField = HexColor('F3F5F7');
   static Color red = HexColor('D2001A');
+  static Color begin_color = HexColor('00FF00');
   static Color grey = HexColor('EAEEF7');
   static Color grey2 = HexColor('F6F7F9');
   static Color grey3 = HexColor('BDBDBD');
@@ -15,5 +16,5 @@ class ColorManager {
   static Color yellow = HexColor('FFC700');
   static Color black = HexColor('000000');
 
-  // F6F7F9
+  // 00FF00
 }

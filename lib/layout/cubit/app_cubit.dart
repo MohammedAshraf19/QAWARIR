@@ -50,8 +50,9 @@ class AppCubit extends Cubit<AppState> {
   File? testImage;
   var picker = ImagePicker();
   Future<void> getTestImage() async {
+    emit(AppTestImagePickedLoadingState());
     final pickedFile = await picker.pickImage(
-      source: ImageSource.camera,
+      source: ImageSource.gallery,
     );
     if (pickedFile != null) {
       testImage = File(pickedFile.path);

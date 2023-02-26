@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:qawarir/layout/cubit/app_cubit.dart';
 import 'package:qawarir/modules/home/home_screen.dart';
 import 'package:qawarir/shared/components/components.dart';
@@ -20,7 +19,76 @@ class QawarirLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
   listener: (context, state) {
-    // TODO: implement listener
+    // if(state is AppTestImagePickedLoadingState){
+    //   showDialog(
+    //     context: context,
+    //     builder: (context)=>Lottie.asset(AssetManager.testImageAnimation),
+    //   );
+    // }
+
+    if(state is AppTestImagePickedLoadingState){
+      showDialog(
+          context: context,
+          builder: (context)=>AlertDialog(
+            title: Column(
+              children: [
+                Lottie.asset(AssetManager.done_button),
+                SizedBox(
+                  height: AppSize.s4,
+                ),
+                Text(
+                  'Bengin',
+                  style: getBoldStyle(color: ColorManager.begin_color,fontSize: FontSize.s32),
+                ),
+              ],
+            ),
+           content: RichText(
+               text: TextSpan(
+                 children: [
+                   TextSpan(
+                     text: 'Congratulations..',
+                     style: getMediumStyle(color: ColorManager.black)
+                   ),
+                   TextSpan(
+                       text: 'The Result of your histopathological Image is',
+                       style: getRegularStyle(color: ColorManager.black,fontSize: FontSize.s14)
+                   ),
+                   TextSpan(
+                       text: 'Bengin.',
+                       style: getMediumStyle(color: ColorManager.black)
+                   ),
+                   TextSpan(
+                       text: 'Now, you can save the patient data.',
+                       style: getRegularStyle(color: ColorManager.black,fontSize: FontSize.s14)
+                   ),
+                 ]
+               ),
+           ),
+            actions: [
+              Center(
+                child: Container(
+                  height: MediaQuery.of(context).size.height/20,
+                  width: MediaQuery.of(context).size.width/1.5,
+                  child: buildBigButton(
+                      'Save', () {}
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                 Navigator.pop(context);
+                },
+                child: Center(
+                  child: Text(
+                    'Cancel',
+                    style: getMediumStyle(color: ColorManager.black.withOpacity(0.5),fontSize: FontSize.s16),
+                  ),
+                ),
+              ),
+            ],
+          )
+      );
+    }
   },
   builder: (context, state) {
     var cubit = AppCubit.get(context);
@@ -133,7 +201,8 @@ class QawarirLayout extends StatelessWidget {
     );
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle: cubit.inProfile
+        systemOverlayStyle:
+        cubit.inProfile
             ? SystemUiOverlayStyle(
             statusBarColor: ColorManager.primary,
             statusBarIconBrightness: Brightness.dark,

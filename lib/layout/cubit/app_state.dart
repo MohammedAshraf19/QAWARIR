@@ -17,6 +17,7 @@ class ShowProfile extends AppState {}
 // Test Image
 class AppTestImagePickedSuccessState extends AppState {}
 class AppTestImagePickedErrorState extends AppState {}
+class AppTestImagePickedLoadingState extends AppState {}
 
 class AppUpdateTestLoadingState extends AppState {}
 class AppUpdateTestErrorState extends AppState {}

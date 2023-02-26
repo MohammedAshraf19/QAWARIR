@@ -11,6 +11,8 @@ class AssetManager
 
   // HOME
   static const String homeAsset = '$imagePath/home.png';
+  static const String done_button = '$imagePath/done_button.json';
+  static const String testImageAnimation = '$imagePath/test_image_animation.json';
   static const String homeResult = '$imagePath/homeResult.png';
   static const String homeMenueIcon = '$iconPath/menue_icon.png';
   static const String homeNotificationIcon = '$iconPath/homeNotification_icon.png';

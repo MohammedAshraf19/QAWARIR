@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:qawarir/layout/cubit/app_cubit.dart';
 import 'package:qawarir/shared/style/asset_manager.dart';
 import 'package:qawarir/shared/style/color_manager.dart';
@@ -22,8 +23,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
-  listener: (context, state) {
-  },
+      listener: (context, state) {
+
+        },
   builder: (context, state) {
     return ListView.builder(
         itemBuilder: (context,index)=>buildNot(context),
