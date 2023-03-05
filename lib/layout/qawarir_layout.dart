@@ -18,7 +18,6 @@ class QawarirLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
   listener: (context, state) {
-
     if(state is AppTestImagePickedLoadingState){
       showDialog(
         context: context,
@@ -26,14 +25,13 @@ class QawarirLayout extends StatelessWidget {
       );
     }
     if(state is AppTestImagePickedSuccessState){
-      Navigator.pop(context);
       showDialog(
           context: context,
           builder: (context)=>AlertDialog(
             title: Column(
               children: [
                 Lottie.asset(AssetManager.done_button),
-                SizedBox(
+                const SizedBox(
                   height: AppSize.s4,
                 ),
                 Text(
@@ -71,7 +69,7 @@ class QawarirLayout extends StatelessWidget {
                   width: MediaQuery.of(context).size.width/1.5,
                   child: buildBigButton(
                       'Save', () {
-                     //  Navigator.pop(context);
+                        Navigator.pop(context);
                         showModalBottomSheet(
                             shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
@@ -136,7 +134,6 @@ class QawarirLayout extends StatelessWidget {
                                             date: 'Feb 26,23',
                                             status: 'Begin'
                                           );
-                                          Navigator.pop(context);
                                           Navigator.pop(context);
                                             },
                                     ),
@@ -330,7 +327,9 @@ class QawarirLayout extends StatelessWidget {
           )
         ],
       ),
-      body:state is! AppGetImageLoadingState? HomeScreen(cubit: cubit):Center(child: circularIndicator(color: ColorManager.primary)),
+      body:state is! AppGetImageLoadingState && state is! AppUpdateImageLoadingState && state is! AppUpdateImageSuccessState?
+      HomeScreen(cubit: cubit):
+      Center(child: circularIndicator(color: ColorManager.primary)),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         heroTag: 'home',

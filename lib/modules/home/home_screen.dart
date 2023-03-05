@@ -126,8 +126,9 @@ class HomeScreen extends StatelessWidget {
               ),
               Spacer(),
                 Image(
+                  height: MediaQuery.of(context).size.height/10,
                   image:NetworkImage(
-                      '${cubit.tests[index].image}'
+                      '${cubit.tests[index].image}',
                   )
               ),
             ],

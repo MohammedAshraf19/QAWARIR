@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +30,6 @@ class AppCubit extends Cubit<AppState> {
     inProfile = true;
     emit(ShowProfile());
   }
-
   // Get User Data
   UserModel? userModel ;
   void getUserData(){
@@ -57,16 +55,16 @@ class AppCubit extends Cubit<AppState> {
     final pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
     );
-    if (pickedFile != null) {
-      testImage = File(pickedFile.path);
-      var time = Timer(Duration(seconds: 4), () {
-        Navigator.pop(context);
-      });
-      time;
-      emit(AppTestImagePickedSuccessState());
-    } else {
-      emit(AppTestImagePickedErrorState());
-    }
+    var time = Timer(const Duration(seconds: 2), () {
+      Navigator.pop(context);
+      if (pickedFile != null) {
+        testImage = File(pickedFile.path);
+        emit(AppTestImagePickedSuccessState());
+      } else {
+        emit(AppTestImagePickedErrorState());
+      }
+    });
+    time;
   }
 
 
